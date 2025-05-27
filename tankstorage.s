@@ -1,0 +1,87 @@
+define turbopumps HASH("StructureTurboVolumePump")
+define analyser HASH("StructurePipeAnalysizer")
+define door HASH("StructureGlassDoor")
+define pumps HASH("StructureVolumePump")
+define regulators HASH("StructurePressureRegulator")
+define canstor HASH("StructureGasTankStorage")
+# tankfiltrationpo tankanalyserdown tankanalyserup
+# o2storage co2storage co2regulator o2regulator
+
+sb filtration On 1
+sb door Open 1
+sbn turbopumps HASH("mainpump") On 1
+sb pumps On 1
+sb regulators On 1
+
+main:
+yield
+lbn r1 analyser HASH("tankanalyserup") Pressure 0
+bgtal r1 50 pumpstatus
+bltal r1 50 pumpstop
+lb r1 door Open 0
+beqal r1 1 doorclose
+lbn r1 canstor HASH("o2storage") Pressure 0
+bltal r1 14900 starto2regulator
+bgtal r1 14900 stopo2regulator
+lbn r1 canstor HASH("co2storage") Pressure 0
+bltal r1 14900 startco2regulator
+bgtal r1 14900 stopco2regulator
+lbn r1 analyser HASH("tankanalyserdown") Pressure 0
+bgtal r1 10 startfiltration
+bltal r1 10 stopfiltration
+j main
+
+pumpstatus:
+yield
+lbn r1 analyser HASH("tankanalyserup") Pressure 0
+blt r1 50 pumpstop
+lbn r1 analyser HASH("tankanalyserup") Temperature 0
+blt r1 293 pumpstart
+j ra
+
+pumpstart:
+yield
+sbn turbopumps HASH("mainpump") On 1
+j ra
+
+starto2regulator:
+yield
+sbn regulators HASH("o2regulator") On 1
+j ra
+
+startco2regulator:
+yield
+sbn regulators HASH("co2regulator") On 1
+j ra
+
+startfiltration:
+yield
+sb filtration On 1
+sb pumps On 1
+j ra
+
+pumpstop:
+sleep 3
+sbn turbopumps HASH("mainpump") On 0
+j ra
+
+stopo2regulator:
+sleep 3
+sbn regulators HASH("o2regulator") On 0
+j ra
+
+stopco2regulator:
+sleep 3
+sbn regulators HASH("co2regulator") On 0
+j ra
+
+doorclose:
+sleep 3
+sb door Open 0
+j ra
+
+stopfiltration:
+sleep 3
+sb filtration On 0
+sb pumps On 0
+j main
