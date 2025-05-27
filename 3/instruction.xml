@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133749832794602928</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>3</Title>
+  <Description>Wall Light (Long)​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias pipepr d0
+alias meow d1
+
+s pipepr On 1
+s meow On 1
+
+main:
+#yield
+l r1 pipepr Activate
+beqz r0 machinepending
+beq r1 1 machineactive
+j main
+
+machinepending:
+l r1 pipepr Activate
+#yield
+beqz r1 machinepending
+#yield
+beq r1 1 machineactive
+
+machineactive:
+l r1 pipepr Activate
+#yield
+beq r1 1 machineactive
+#yield
+beqz r1 machinestop
+
+machinestop:
+l r1 pipepr Activate
+#sleep 10
+s meow On 0
+s pipepr On 0
+s pipepr On 0
+s pipepr On 0</Instructions>
+</InstructionData>

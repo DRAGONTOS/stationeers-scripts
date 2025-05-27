@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133754676182418532</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>gasgeneratorbatt</Title>
+  <Description>​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define battery -1388288459
+define generator 1165997963
+define air -2087593337
+
+alias powerpercent r3
+
+lb powerpercent battery Ratio 0
+
+main:
+blt powerpercent 0.20 genon
+bgt powerpercent 0.90 genoff
+yield
+j main
+
+genon:
+sb generator On 1
+sb air On 1
+j main
+
+genoff:
+sb generator On 0
+sb air On 0
+j main</Instructions>
+</InstructionData>

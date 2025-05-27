@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133755646572908557</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>meow</Title>
+  <Description>​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define battery HASH("StructureBatteryLarge")
+define generator HASH("StructureGasGenerator")
+define air -2087593337
+alias led d0
+
+alias powerpercent r3
+
+lb powerpercent battery Charge 0
+s led Mode 1
+
+main:
+lb powerpercent battery Charge 0
+s led Setting powerpercent
+blt powerpercent 1800000 genon
+bgt powerpercent 7200000 genoff
+yield
+j main
+
+genon:
+sb generator On 1
+sb air On 1
+j main
+
+genoff:
+sb generator On 0
+sb air On 0
+j main</Instructions>
+</InstructionData>

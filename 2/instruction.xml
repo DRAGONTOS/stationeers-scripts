@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133749809849153491</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>2</Title>
+  <Description>Hydraulic Pipe Bender​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias autoic d0
+alias elecic d1
+alias pipeic d2
+
+alias autopr d3
+alias elecpr d4
+alias pipepr d5
+
+s autoic On 1
+s elecic On 1
+s pipeic On 1
+
+main:
+yield
+
+l r1 autopr Activate
+beq r1 1 machine1
+
+l r2 elecpr Activate
+beq r1 1 machine2
+
+l r3 pipepr Activate
+beq r1 1 machine3
+
+#s autoic On r1
+#s elecic On r2
+#s pipeic On r1
+j main
+
+machine1:
+s autoic On 1
+
+machine2:
+s elecic On 1
+
+machine3:
+s pipeic On 1</Instructions>
+</InstructionData>

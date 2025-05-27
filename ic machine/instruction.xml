@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133749798510042746</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>ic machine</Title>
+  <Description>Hydraulic Pipe Bender​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define door HASH("StructureGlassDoor")
+define air HASH("StructureAirConditioner")
+define analyzer HASH("StructurePipeAnalysizer")
+define evap HASH("StructureEvaporationChamber")
+define conden HASH("StructureCondensationChamber")
+
+sb door On 1
+sb air On 1
+
+main:
+yield
+lb r1 analyzer Temperature 0
+bgtal r1 269 cooling
+bltal r1 269 coolingoff
+sleep 2
+sb door On 0
+j main
+
+cooling:
+sbn air HASH("aircool") On 1
+sb evap On 1
+sb conden On 0
+j ra
+
+coolingoff:
+sbn air HASH("aircool") On 0
+sb evap On 0
+sb conden On 0
+j main</Instructions>
+</InstructionData>

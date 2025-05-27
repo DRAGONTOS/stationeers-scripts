@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133751003680420111</DateTime>
+  <GameVersion>0.2.5259.23818</GameVersion>
+  <Title>test2</Title>
+  <Description>​</Description>
+  <Author>Noob</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define door -324331872   # Ensure this hash ID is correct
+define stacker 1585641623
+
+main:
+    yield
+
+    # Test 1: Check if the door is open using the simplest `lbs` command
+    lbs r10 door 0 Open 0    # Check if the door is open using Average mode
+    beq r10 0 door_closed    # Branch if door is not open
+
+    # Test output to verify the door is open
+    sb door Open 1           # Force door to open if not already
+
+door_closed:
+    # Set the door to closed (for testing purposes)
+    sb door Open 0
+    j main                   # Loop back to main</Instructions>
+</InstructionData>
